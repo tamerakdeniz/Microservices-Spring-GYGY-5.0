@@ -1,3 +1,6 @@
 spring:
     application:
         name: user-service
+
+server:
+    port: 0 // 0 means to use a random available port
