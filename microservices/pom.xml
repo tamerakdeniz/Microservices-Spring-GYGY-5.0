@@ -20,8 +20,10 @@
     <modules>
         <module>user-service</module>
         <module>product-service</module>
+        <module>eureka-server</module>
         <module>order-service</module>
         <module>cart-service</module>
+        <module>gateway-server</module>
     </modules>
 
     <properties>

@@ -1,6 +1,12 @@
 spring:
-    application:
-        name: user-service
+  application:
+    name: user-service
 
 server:
-    port: 8081 # 0 means to use a random available port
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
