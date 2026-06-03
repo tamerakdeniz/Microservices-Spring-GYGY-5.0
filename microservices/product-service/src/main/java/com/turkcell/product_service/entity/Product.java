@@ -5,12 +5,14 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
+    @Column(nullable = false, updatable = false)
     private UUID id;
 
     @Column(nullable = false)
@@ -22,10 +24,16 @@ public class Product {
     protected Product() {
     }
 
-    public Product(UUID id, String name, int stockQuantity) {
-        this.id = id;
+    public Product(String name, int stockQuantity) {
         this.name = name;
         this.stockQuantity = stockQuantity;
+    }
+
+    @PrePersist
+    void assignId() {
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
     }
 
     public void decreaseStock(int quantity) {
