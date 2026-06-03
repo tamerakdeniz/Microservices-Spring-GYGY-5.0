@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,8 +25,7 @@ public class OutboxMessage {
     @Column(nullable = false, updatable = false)
     private String eventType;
 
-    @Lob
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, columnDefinition = "text")
     private String payload;
 
     @Enumerated(EnumType.STRING)

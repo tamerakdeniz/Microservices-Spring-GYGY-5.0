@@ -2,10 +2,10 @@ spring:
   application:
     name: product-service
   datasource:
-    url: jdbc:h2:mem:productdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/microservices-spring}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:admin}
+    password: ${POSTGRES_PASSWORD:admin}
   jpa:
     hibernate:
       ddl-auto: update
