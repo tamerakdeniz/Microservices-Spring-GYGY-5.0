@@ -17,9 +17,6 @@ spring:
       definition: processOrderCreatedEvent
     stream:
       bindings:
-        testEvent-out-0:
-          destination: test-topic # hangi başlığa bu eventi göndereyim?
-          content-type: application/json # hangi tür ile göndereyim?
         processOrderCreatedEvent-in-0:
           destination: order-created-topic
           group: product-service-group

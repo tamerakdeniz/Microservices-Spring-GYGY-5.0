@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -14,20 +12,26 @@ import jakarta.persistence.Table;
 @Table(name = "outbox")
 public class OutboxEvent {
     @Id
+    @Column(updatable = false)
     private UUID id;
+
+    @Column(name = "aggregate_type")
     private String aggregateType; // Product
+
+    @Column(name = "aggregate_id")
     private String aggregateId; // ProductId , Aggregate -> İlgili nesne
+
+    @Column(name = "event_type")
     private String eventType; // TestEvent
+
+    @Column
+    private String topic; // Kafka topic
+
     @Column(columnDefinition = "TEXT")
     private String payload; // JSON
-    private String errorMessage; // Hata varsa, ne hatası var?
-    private int retryCount; // Kaç kere denedim?
 
+    @Column(name = "created_at")
     private Instant createdAt; // Şu tarihte sıraya aldım
-    private Instant processedAt; // Şu tarihte kafkaya gönderdim?
-
-    @Enumerated(EnumType.STRING)
-    private OutboxStatus status; // PENDING, SENT, FAILED
 
     public UUID getId() {
         return id;
@@ -61,28 +65,20 @@ public class OutboxEvent {
         this.eventType = eventType;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     public String getPayload() {
         return payload;
     }
 
     public void setPayload(String payload) {
         this.payload = payload;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public int getRetryCount() {
-        return retryCount;
-    }
-
-    public void setRetryCount(int retryCount) {
-        this.retryCount = retryCount;
     }
 
     public Instant getCreatedAt() {
@@ -92,25 +88,4 @@ public class OutboxEvent {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
-
-    public Instant getProcessedAt() {
-        return processedAt;
-    }
-
-    public void setProcessedAt(Instant processedAt) {
-        this.processedAt = processedAt;
-    }
-
-    public OutboxStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OutboxStatus status) {
-        this.status = status;
-    }
 }
-
-// OutboxStatus => 1,2,3
-// OutboxStatus => PENDING,SENT,FAILED
-
-// Validator -> 50 tane farklı import
