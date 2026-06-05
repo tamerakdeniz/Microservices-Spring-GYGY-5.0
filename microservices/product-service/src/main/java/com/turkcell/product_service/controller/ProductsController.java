@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import com.turkcell.product_service.entity.TestClass;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turkcell.product_service.entity.OutboxEvent;
@@ -36,6 +37,11 @@ public class ProductsController {
         this.productRepository = productRepository;
         this.outboxRepository = outboxRepository;
         this.objectMapper = objectMapper;
+    }
+
+    @GetMapping("/test")
+    public TestClass test2() {
+        return new TestClass("Product Service Test Başarılı");
     }
 
     @GetMapping
