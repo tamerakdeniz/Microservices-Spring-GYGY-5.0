@@ -19,7 +19,7 @@ Bu entegrasyonda hedeflenen akis:
 flowchart LR
     Client["Client / Postman"]
     Gateway["gateway-server :8888"]
-    Order["order-service :8083"]
+    Order["order-service :8085"]
     OrderDb[("PostgreSQL\ncustomer_orders\norder_lines\noutbox_messages")]
     Kafka[("Kafka\norder-created-topic")]
     Product["product-service :8084"]
@@ -39,7 +39,7 @@ flowchart LR
 
 Local PostgreSQL container:
 
-- Container adi: `postgres-db`
+- Container adi: `order-db`
 - Host: `localhost`
 - Port: `5432`
 - Database: `microservices-spring`
@@ -483,7 +483,7 @@ select * from processed_events;
 Container icinden:
 
 ```bash
-docker exec postgres-db psql -U admin -d microservices-spring
+docker exec order-db psql -U admin -d microservices-spring
 ```
 
 ## Tasarim Kararlari
