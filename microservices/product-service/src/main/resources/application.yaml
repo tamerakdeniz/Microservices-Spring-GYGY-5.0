@@ -1,29 +1,9 @@
 spring:
   application:
     name: product-service
-  datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5433/products}
-    driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:test12345}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-  cloud:
-    function:
-      definition: processOrderCreatedEvent
-    stream:
-      bindings:
-        processOrderCreatedEvent-in-0:
-          destination: order-created-topic
-          group: product-service-group
-          content-type: application/json
-      kafka:
-        binder:
-          brokers: localhost:9092
-
+  profiles:
+    active: dev
+  config:
+    import: "optional:configserver:http://localhost:8888"
 server:
-  port: 8084
+  port: 8082
